@@ -48,47 +48,46 @@
           </div>
         </form>
       </div>
-      <div class="container-todoItem text-white mt-10 drop-shadow-3xl">
-        <div class="todoItem__items px-3 py-5 bg-bgSecondary">
-          <div
-            v-for="todo in todos"
-            :key="todo"
-            class="flex items-center p-5 text-[36px] justify-between hover:cursor-pointer"
-          >
-            <div class="item">
-              <input
-                id="default-checkbox"
-                type="checkbox"
-                value=""
-                class="w-7 h-7 text-blue-600 bg-gray-100 hover:cursor-pointer rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-              />
-              <label
-                for="default-checkbox"
-                class="ml-4 hover:cursor-pointer font-medium"
-                >{{ todo.name }}</label
-              >
-            </div>
-            <button
-              type="submit"
-              class="bg-red-500 text-white font-bold px-5 rounded-lg text-[26px] m-"
-            >
-              X
-            </button>
-          </div>
-        </div>
+      <div
+        class="container-todoItem text-white mt-10 max-h-[50%] drop-shadow-3xl"
+        :class="checkHeight"
+      >
+        <TodoItem :todos="todos" @deleteTodo="deleteTodo" />
       </div>
+      <p class="p-2.5 text-white mt-3 text-3xl">
+        Jumlah Todo : {{ todoLength }}
+      </p>
     </div>
   </div>
 </template>
 
 <script>
+import TodoItem from "./components/TodoItem.vue";
 export default {
+  components: { TodoItem },
   data() {
     return {
       todos: [],
       todo: "",
     };
   },
+
+  computed: {
+    todoLength() {
+      return this.todos.length;
+    },
+
+    checkHeight() {
+      let num = this.todoLength.toString();
+      console.log(num);
+
+      if (num > 5) {
+        return "h-[36rem]";
+      }
+      return "h-auto";
+    },
+  },
+
   methods: {
     addTodo() {
       this.todos.unshift({
@@ -97,6 +96,14 @@ export default {
       });
       console.log(this.todos);
       this.todo = "";
+    },
+
+    deleteTodo(todoIndex) {
+      this.todos = this.todos.filter((item, index) => {
+        if (index !== todoIndex) {
+          return item;
+        }
+      });
     },
   },
 };
