@@ -15,12 +15,19 @@
               >Your Email</label
             >
             <div class="relative w-full">
+              <p
+                v-if="todo == ''"
+                class="text-red-700 text-lg absolute z-10 top-[-3rem]"
+              >
+                Input Wajib Diisi
+              </p>
+              <p v-else class="text-red-700 absolute z-10 top-[-2rem]"></p>
               <input
                 id="search-dropdown"
                 v-model="todo"
                 class="block p-4 pr-16 w-full z-20 text-2xl text-white bg-bgSecondary drop-shadow-3xl rounded-r-xl border-none focus:ring-transparent"
                 placeholder="Create a new todo..."
-                required=""
+                required
                 autocomplete="off"
               />
               <button
@@ -71,6 +78,11 @@ export default {
       todo: "",
     };
   },
+  watch: {
+    todos() {
+      console.log("yyy");
+    },
+  },
 
   computed: {
     todoLength() {
@@ -79,7 +91,6 @@ export default {
 
     checkHeight() {
       let num = this.todoLength.toString();
-      console.log(num);
 
       if (num > 5) {
         return "h-[36rem]";
@@ -94,7 +105,6 @@ export default {
         name: this.todo,
         done: false,
       });
-      console.log(this.todos);
       this.todo = "";
     },
 
@@ -105,6 +115,22 @@ export default {
         }
       });
     },
+    // finishTodo(todoIndex) {
+    //   this.todos.forEach((element, index) => {
+    //     if (todoIndex == index) {
+    //       element.done = !element.done;
+    //       console.log(element);
+    //       this.showDone(element.done);
+    //     }
+    //   });
+    // },
+
+    // showDone(isDone) {
+    //   if (isDone) {
+    //   } else {
+    //     alert(isDone);
+    //   }
+    // },
   },
 };
 </script>
