@@ -1,11 +1,11 @@
 <template>
-  <h1 class="text-white text-[96px] m-8">
+  <h1 class="text-white xl:text-[96px] my-8 text-center text-[26px] xl:m-8">
     Todo
     <font-awesome-icon icon="fa-solid fa-arrow-turn-down-left" />
   </h1>
 
-  <div class="wrapper flex flex-col items-center">
-    <div class="container w-[666px] h-[412.45]">
+  <div class="wrapper flex flex-col items-center mt-[7rem] xl:mt-0">
+    <div class="container w-[80%] xl:w-[666px] h-[412.45]">
       <div class="container-input">
         <form>
           <div class="flex">
@@ -17,7 +17,7 @@
             <div class="relative w-full">
               <p
                 v-if="todo == ''"
-                class="text-red-700 text-lg absolute z-10 top-[-3rem]"
+                class="text-red-700 text-[16px] xl:text-lg absolute z-10 top-[-3rem]"
               >
                 Input Wajib Diisi
               </p>
@@ -25,7 +25,7 @@
               <input
                 id="search-dropdown"
                 v-model="todo"
-                class="block p-4 pr-16 w-full z-20 text-2xl text-white bg-bgSecondary drop-shadow-3xl rounded-r-xl border-none focus:ring-transparent"
+                class="block p-2 xl:p-4 pr-16 w-full z-20 text-[16px] xl:text-2xl text-white bg-bgSecondary drop-shadow-3xl rounded-r-xl border-none focus:ring-transparent"
                 placeholder="Create a new todo..."
                 required
                 autocomplete="off"
@@ -33,11 +33,11 @@
               <button
                 type="submit"
                 @click.prevent="addTodo"
-                class="absolute top-0 right-0 p-2.5 text-2xl font-medium text-white bg-addBtn rounded-r-lg border hover:bg-addBtn border-none"
+                class="absolute text-center w-10 h-10 xl:w-auto xl:h-auto top-0 right-0 xl:p-2.5 text-2xl font-medium text-white bg-addBtn rounded-r-lg border hover:bg-addBtn border-none"
               >
                 <svg
                   aria-hidden="true"
-                  class="w-11 h-11"
+                  class="h-6 w-6 m-0 mx-auto xl:w-11 xl:h-11"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -59,9 +59,13 @@
         class="container-todoItem text-white mt-10 max-h-[50%] drop-shadow-3xl"
         :class="checkHeight"
       >
-        <TodoItem :todos="todos" @deleteTodo="deleteTodo" />
+        <TodoItem
+          :todos="todos"
+          @deleteTodo="deleteTodo"
+          @finishTodo="finishTodo"
+        />
       </div>
-      <p class="p-2.5 text-white mt-3 text-3xl">
+      <p class="p-2.5 text-white mt-3 text-[16px] xl:text-3xl">
         Jumlah Todo : {{ todoLength }}
       </p>
     </div>
@@ -115,15 +119,15 @@ export default {
         }
       });
     },
-    // finishTodo(todoIndex) {
-    //   this.todos.forEach((element, index) => {
-    //     if (todoIndex == index) {
-    //       element.done = !element.done;
-    //       console.log(element);
-    //       this.showDone(element.done);
-    //     }
-    //   });
-    // },
+
+    finishTodo(todoIndex) {
+      this.todos.forEach((element, index) => {
+        if (todoIndex == index) {
+          element.done = !element.done;
+          console.log(element);
+        }
+      });
+    },
 
     // showDone(isDone) {
     //   if (isDone) {
