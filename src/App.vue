@@ -103,6 +103,10 @@ export default {
     },
   },
 
+  mounted() {
+    this.todos = JSON.parse(localStorage.getItem("todos"));
+  },
+
   methods: {
     addTodo() {
       this.todos.unshift({
@@ -110,6 +114,7 @@ export default {
         done: false,
       });
       this.todo = "";
+      this.saveTodo();
     },
 
     deleteTodo(todoIndex) {
@@ -118,6 +123,7 @@ export default {
           return item;
         }
       });
+      this.saveTodo();
     },
 
     finishTodo(todoIndex) {
@@ -127,14 +133,14 @@ export default {
           console.log(element);
         }
       });
+
+      this.saveTodo();
     },
 
-    // showDone(isDone) {
-    //   if (isDone) {
-    //   } else {
-    //     alert(isDone);
-    //   }
-    // },
+    saveTodo() {
+      const dataParse = JSON.stringify(this.todos);
+      localStorage.setItem("todos", dataParse);
+    },
   },
 };
 </script>
