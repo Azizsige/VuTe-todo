@@ -80,6 +80,7 @@ export default {
     return {
       todos: [],
       todo: "",
+      check: "",
     };
   },
   watch: {
@@ -109,6 +110,7 @@ export default {
 
   methods: {
     addTodo() {
+      if (this.todo == "") return;
       this.todos.unshift({
         name: this.todo,
         done: false,
@@ -131,6 +133,8 @@ export default {
         if (todoIndex == index) {
           element.done = !element.done;
           console.log(element);
+          this.check = element.done;
+          console.log(this.check);
         }
       });
 
@@ -141,6 +145,8 @@ export default {
       const dataParse = JSON.stringify(this.todos);
       localStorage.setItem("todos", dataParse);
     },
+
+    // checked,
   },
 };
 </script>

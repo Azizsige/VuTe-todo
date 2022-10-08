@@ -10,6 +10,7 @@
           :id="index"
           @click="finishTodo(index)"
           type="checkbox"
+          :key="index"
           value=""
           required
           class="xl:w-7 xl:h-7 w-5 h-5 text-blue-600 bg-gray-100 hover:cursor-pointer rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
