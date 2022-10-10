@@ -10,6 +10,7 @@
           :id="index"
           @click="finishTodo(index)"
           type="checkbox"
+          :checked="todo.done"
           :key="index"
           value=""
           required
