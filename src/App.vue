@@ -143,12 +143,10 @@ export default {
 
     checkLength() {
       let counter = 0;
-      if (this.todos.length == null || this.todos.length !== null) {
-        for (let i = 0; i < this.todos.length; i++) {
-          if (this.todos[i].done === true) counter++;
-        }
-        return counter;
+      for (let i = 0; i < this.todos.length; i++) {
+        if (this.todos[i].done === true) counter++;
       }
+      return counter;
     },
   },
 };
