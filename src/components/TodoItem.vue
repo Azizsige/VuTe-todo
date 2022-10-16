@@ -46,14 +46,12 @@ export default {
   computed: {
     computedClass() {
       let className = this.todos.length.toString();
-
-      // More complicated logic to determine what
-      // class should be applied
-
-      if (className > 0) {
-        return "overflow-y-scroll h-full";
+      if (className == null || className !== null) {
+        if (className > 0) {
+          return "overflow-y-scroll h-full";
+        }
+        return "overflow-y-auto h-auto";
       }
-      return "overflow-y-auto h-auto";
     },
   },
   methods: {

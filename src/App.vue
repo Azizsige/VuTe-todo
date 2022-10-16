@@ -58,6 +58,7 @@
         </div>
         <div
           class="container-todoItem text-white mt-10 max-h-[50%] drop-shadow-3xl"
+          :class="checkHeight"
         >
           <TodoItem
             :todos="todos"
@@ -87,18 +88,22 @@ export default {
 
   watch: {},
 
-  computed: {
-    // checkHeight() {
-    //   let num = this.todoLength.toString();
-    //   if (num > 5) {
-    //     return "h-[36rem]";
-    //   }
-    //   return "h-auto";
-    // },
+  mounted() {
+    if (localStorage.getItem("todos") == null) {
+      this.todos = JSON.parse(localStorage.getItem("todos"));
+    } else {
+      this.todos = JSON.parse(localStorage.getItem("todos"));
+    }
   },
 
-  mounted() {
-    this.todos = JSON.parse(localStorage.getItem("todos"));
+  computed: {
+    checkHeight() {
+      let num = this.todos?.length.toString();
+      if (num > 5) {
+        return "h-[36rem]";
+      }
+      return "h-auto";
+    },
   },
 
   methods: {
@@ -138,10 +143,12 @@ export default {
 
     checkLength() {
       let counter = 0;
-      for (let i = 0; i < this.todos.length; i++) {
-        if (this.todos[i].done === true) counter++;
+      if (this.todos.length == null || this.todos.length !== null) {
+        for (let i = 0; i < this.todos.length; i++) {
+          if (this.todos[i].done === true) counter++;
+        }
+        return counter;
       }
-      return counter;
     },
   },
 };
