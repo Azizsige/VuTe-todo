@@ -86,17 +86,14 @@ export default {
     };
   },
 
-  watch: {
-    todos: {
-      handler: function () {
-        if (localStorage.getItem("todos") == null) {
-          this.todos = JSON.parse(localStorage.getItem("todos"));
-        } else {
-          this.todos = JSON.parse(localStorage.getItem("todos"));
-        }
-      },
-      deep: true,
-    },
+  mounted() {
+    if (localStorage.getItem("todos")) {
+      try {
+        this.todos = JSON.parse(localStorage.getItem("todos"));
+      } catch (e) {
+        localStorage.removeItem("todos");
+      }
+    }
   },
 
   computed: {
