@@ -86,11 +86,22 @@ export default {
     };
   },
 
-  watch: {},
+  watch: {
+    todos: {
+      handler: function () {
+        if (localStorage.getItem("todos") == null) {
+          this.todos = JSON.parse(localStorage.getItem("todos"));
+        } else {
+          this.todos = JSON.parse(localStorage.getItem("todos"));
+        }
+      },
+      deep: true,
+    },
+  },
 
   mounted() {
     if (localStorage.getItem("todos") == null) {
-      this.todos = JSON.parse(localStorage.getItem("todos"));
+      this.todos = [];
     } else {
       this.todos = JSON.parse(localStorage.getItem("todos"));
     }
@@ -103,50 +114,6 @@ export default {
         return "h-[36rem]";
       }
       return "h-auto";
-    },
-  },
-
-  methods: {
-    addTodo() {
-      if (this.todo == "") return;
-      this.todos.unshift({
-        name: this.todo,
-        done: false,
-      });
-      this.todo = "";
-      this.saveTodo();
-    },
-
-    deleteTodo(todoIndex) {
-      this.todos = this.todos.filter((item, index) => {
-        if (index !== todoIndex) {
-          return item;
-          // return item;
-        }
-      });
-      this.saveTodo();
-    },
-
-    finishTodo(todoIndex) {
-      this.todos.forEach((element, index) => {
-        if (todoIndex == index) {
-          element.done = !element.done;
-        }
-      });
-      this.saveTodo();
-    },
-
-    saveTodo() {
-      const dataParse = JSON.stringify(this.todos);
-      localStorage.setItem("todos", dataParse);
-    },
-
-    checkLength() {
-      let counter = 0;
-      for (let i = 0; i < this.todos.length; i++) {
-        if (this.todos[i].done === true) counter++;
-      }
-      return counter;
     },
   },
 };
